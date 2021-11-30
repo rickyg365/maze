@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 
 from display_handler import Display
@@ -6,8 +7,18 @@ from maze_creator import Maze, print_matrix
 from path_handler import graph_print, Graph, dijkstra_algorithm, apply_dijkstra
 
 
+def clear_screen():
+    # Default: WINDOWS
+    clear_command = "cls"
+
+    if sys.platform == "linux":
+        clear_command = "clear"
+
+    os.system(clear_command)
+
+
 def main():
-    os.system("cls")
+    clear_screen()
     # Set row height and col width, respectively
     r = 20
     c = 40
@@ -79,7 +90,7 @@ def main():
     if not short_path:
         print(maze_display)
     for spot in short_path[1:-1]:
-        os.system("cls")
+        clear_screen()
         spot_location = (int(x) for x in spot.split("_"))
         new_maze.update_maze_cell(spot_location, 3)
         maze_display.insert_data(new_maze.new_display_data)
